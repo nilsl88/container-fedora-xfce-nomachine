@@ -1,0 +1,18 @@
+[Unit]
+Description=NoMachine Server daemon
+
+After = systemd-logind.service syslog.target network.target network-online.target sshd.service http-daemon.target.service htd.service
+Wants = network-online.target
+
+[Service]
+User=nx
+Group=nx
+
+ExecStart=-/etc/NX/nxserver --daemon
+
+KillMode=process
+SuccessExitStatus=0 SIGTERM
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
