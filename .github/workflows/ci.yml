@@ -33,8 +33,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/fedora-xfce-nomachine:41
-            ${{ secrets.DOCKER_HUB_USERNAME }}/fedora-xfce-nomachine:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/fedora-xfce-nomachine:41
           platforms: linux/amd64,linux/arm64
 
