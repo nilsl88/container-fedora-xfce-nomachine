@@ -33,6 +33,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: lundberg88/fedora-xfce-nomachine:41
+          tags: ${{ secrets.DOCKER_USERNAME }}/fedora-xfce-nomachine:41
           platforms: linux/amd64,linux/arm64
 
