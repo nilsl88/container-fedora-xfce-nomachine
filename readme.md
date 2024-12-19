@@ -11,8 +11,8 @@ A Fedora based Container/Docker image with Xfce and NoMachine which allows for l
 ### a) Build the image from this repository
 
 ```
-$ git clone https://github.com/cmanique/docker-fedora-xfce-nomachine.git
-$ cd fedora-xfce-nomachine
+$ git clone https://github.com/nilsl88/container-fedora-xfce-nomachine.git
+$ cd container-fedora-xfce-nomachine
 $ alias docker=podman
 $ docker build -t fedora-xfce-nomachine .
 ```   
@@ -21,7 +21,7 @@ $ docker build -t fedora-xfce-nomachine .
 
 ```
 $ alias docker=podman
-$ docker pull docker.io/lundberg88/fedora-xfce-nomachine<tag>
+$ docker pull docker.io/lundberg88/fedora-xfce-nomachine:<tag>
 ```
 
 ### Start a container
