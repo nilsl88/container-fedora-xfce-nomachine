@@ -7,7 +7,6 @@ on:
   pull_request:
     branches:
       - main
-  # Run every 14 days at 00:00 UTC
   schedule:
     - cron: "0 0 */14 * *"
   workflow_dispatch:  # Manual trigger
@@ -28,13 +27,28 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Get versions from Dockerfile
+        id: get_versions
+        run: |
+          # Extract Fedora version and NoMachine version dynamically
+          fedora_version=$(grep -oE 'fedora:[0-9]+' Dockerfile | sed 's/fedora://g')
+          no_machine_version=$(grep -oE 'ARG NOMACHINE_AMD64_RPM="nomachine_[0-9]+\.[0-9]+' Dockerfile | sed 's/ARG NOMACHINE_AMD64_RPM="nomachine_//')
+
+          # Format version for tag (fedora version + no_machine version)
+          version="${fedora_version}-${no_machine_version}"
+
+          # Set the extracted versions as environment variables
+          echo "fedora_version=$fedora_version" >> $GITHUB_ENV
+          echo "no_machine_version=$no_machine_version" >> $GITHUB_ENV
+          echo "version=$version" >> $GITHUB_ENV
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: | 
-            ${{ secrets.DOCKER_USERNAME }}/fedora-xfce-nomachine:41
-            ${{ secrets.DOCKER_USERNAME }}/fedora-xfce-nomachine:latest
+          tags: |
+            ${{ secrets.DOCKER_HUB_USERNAME }}/fedora-xfce-nomachine:${{ env.version }}     # tag with fedora + NoMachine version
+            ${{ secrets.DOCKER_HUB_USERNAME }}/fedora-xfce-nomachine:${{ env.fedora_version }} # tag with only Fedora version
+            ${{ secrets.DOCKER_HUB_USERNAME }}/fedora-xfce-nomachine:latest                  # latest tag
           platforms: linux/amd64,linux/arm64
-
