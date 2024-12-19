@@ -34,8 +34,11 @@ jobs:
           fedora_version=$(grep -oE 'fedora:[0-9]+' Dockerfile | sed 's/fedora://g')
           no_machine_version=$(grep -oE 'ARG NOMACHINE_AMD64_RPM="nomachine_[0-9]+\.[0-9]+' Dockerfile | sed 's/ARG NOMACHINE_AMD64_RPM="nomachine_//')
 
+          # Format NoMachine version and replace "." with "-" (for version tag)
+          no_machine_version_formatted=$(echo "$no_machine_version" | sed 's/\./-/g')
+
           # Format version for tag (fedora version + no_machine version)
-          version="${fedora_version}-${no_machine_version}"
+          version="${fedora_version}-${no_machine_version_formatted}"
 
           # Set the extracted versions as environment variables
           echo "fedora_version=$fedora_version" >> $GITHUB_ENV
