@@ -30,7 +30,7 @@ $ docker pull docker.io/lundberg88/fedora-xfce-nomachine:<tag>
 
 ```
 $ alias docker=podman
-$ docker run --privileged -d -p 4000:4000 -p -p 4000:4000/udp -name fedora-xfce-nomachine docker.io/lundberg88/fedora-xfce-nomachine:<tag>
+$ docker run --privileged -d -p 4000:4000 -p 4000:4000/udp --name fedora-xfce-nomachine docker.io/lundberg88/fedora-xfce-nomachine:<tag>
 ```
 
 ### Stop the container
