@@ -51,7 +51,6 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/fedora-xfce-nomachine:${{ env.version }}     # tag with fedora + NoMachine version
             ${{ secrets.DOCKER_HUB_USERNAME }}/fedora-xfce-nomachine:${{ env.fedora_version }} # tag with only Fedora version
             ${{ secrets.DOCKER_HUB_USERNAME }}/fedora-xfce-nomachine:latest                  # latest tag
           platforms: linux/amd64,linux/arm64
