@@ -4,7 +4,8 @@ A Fedora based Container/Docker image with Xfce and NoMachine which allows for l
 
 ### Inspiration from
 
-[docker-fedora-xfce-nomachine](https://github.com/cmanique/docker-fedora-xfce-nomachine) Also [Docker as an Alternative to Virtual Machines for Transient Environments That Require a GUI](https://dev.to/cmanique/docker-as-an-alternative-to-virtual-machines-for-transient-environments-that-require-a-gui-24la)
+[docker-fedora-xfce-nomachine](https://github.com/cmanique/docker-fedora-xfce-nomachine) 
+[Docker as an Alternative to Virtual Machines for Transient Environments That Require a GUI](https://dev.to/cmanique/docker-as-an-alternative-to-virtual-machines-for-transient-environments-that-require-a-gui-24la)
 
 ## How use
 
