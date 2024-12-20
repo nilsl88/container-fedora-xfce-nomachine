@@ -8,7 +8,8 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 0 */14 * *"
+  # At 00:00 on the first day of each month
+    - cron: "0 0 1 * *"
   workflow_dispatch:  # Manual trigger
 
 jobs:
@@ -38,7 +39,7 @@ jobs:
           no_machine_version_formatted=$(echo "$no_machine_version" | sed 's/\./-/g')
 
           # Format version for tag (fedora version + no_machine version)
-          version="${fedora_version}-${no_machine_version_formatted}"
+          version="${fedora_version}-${no_machine_version}"
 
           # Set the extracted versions as environment variables
           echo "fedora_version=$fedora_version" >> $GITHUB_ENV
@@ -51,6 +52,7 @@ jobs:
           context: .
           push: true
           tags: | 
-            ${{ secrets.DOCKER_USERNAME }}/fedora-xfce-nomachine:41
+            ${{ secrets.DOCKER_USERNAME }}/fedora-xfce-nomachine:${{ env.fedora_version }}
+            ${{ secrets.DOCKER_USERNAME }}/fedora-xfce-nomachine:${{ env.version }}
             ${{ secrets.DOCKER_USERNAME }}/fedora-xfce-nomachine:latest
           platforms: linux/amd64,linux/arm64
