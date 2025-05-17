@@ -1,4 +1,4 @@
-FROM fedora:41
+FROM fedora:42
 
 # get a slightly lighter version of xfce that actually works and some common tools for development and troubleshooting
 # certainly can be made skinnier, in due time
