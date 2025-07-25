@@ -22,10 +22,10 @@ RUN mkdir -p /var/lib/dbus && dbus-uuidgen > /var/lib/dbus/machine-id && mkdir -
 RUN sed -i 's/SELINUX=permissive/SELINUX=disabled/g' /etc/selinux/config
 
 # Install NoMachine
-ARG NOMACHINE_AMD64_RPM="nomachine_9.0.188_11_x86_64.rpm"
-ARG NOMACHINE_ARM64_RPM="nomachine_9.0.188_11_aarch64.rpm"
-ARG NOMACHINE_URL_AMD64="https://download.nomachine.com/download/9.0/Linux/${NOMACHINE_AMD64_RPM}"
-ARG NOMACHINE_URL_ARM64="https://download.nomachine.com/download/9.0/Arm/${NOMACHINE_ARM64_RPM}"
+ARG NOMACHINE_AMD64_RPM="nomachine_9.1.24_6_x86_64.rpm"
+ARG NOMACHINE_ARM64_RPM="nomachine_9.1.24_6_aarch64.rpm"
+ARG NOMACHINE_URL_AMD64="https://web9001.nomachine.com/download/9.1/Linux/${NOMACHINE_AMD64_RPM}"
+ARG NOMACHINE_URL_ARM64="https://web9001.nomachine.com/download/9.1/Arm/${NOMACHINE_ARM64_RPM}"
 
 RUN echo "$NOMACHINE_AMD64_RPM" && \
     echo "$NOMACHINE_URL_AMD64" && \
@@ -55,8 +55,7 @@ RUN echo "nomachine ALL=(ALL) NOPASSWD: ALL" > "/etc/sudoers.d/nomachine" && \
     chmod 440 "/etc/sudoers.d/nomachine"
 
 # make systemctl not go into graphical mode
-RUN ln -s /lib/systemd/system/systemd-logind.service /etc/systemd/system/multi-user.target.wants/systemd-logind.service
-RUN systemctl set-default multi-user.target
+RUN ln -s /lib/systemd/system/systemd-logind.service /etc/systemd/system/multi-user.target.wants/systemd-logind.service; systemctl set-default multi-user.target
 
 COPY nxserver.service /usr/lib/systemd/system/nxserver.service
 RUN ln -s /lib/systemd/system/nxserver.service /etc/systemd/system/multi-user.target.wants/nxserver.service
