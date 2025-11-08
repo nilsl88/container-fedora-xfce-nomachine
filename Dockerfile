@@ -1,4 +1,4 @@
-FROM fedora:42
+FROM fedora:43
 
 # get a slightly lighter version of xfce that actually works and some common tools for development and troubleshooting
 # certainly can be made skinnier, in due time
@@ -22,10 +22,10 @@ RUN mkdir -p /var/lib/dbus && dbus-uuidgen > /var/lib/dbus/machine-id && mkdir -
 RUN sed -i 's/SELINUX=permissive/SELINUX=disabled/g' /etc/selinux/config
 
 # Install NoMachine
-ARG NOMACHINE_AMD64_RPM="nomachine_9.1.24_6_x86_64.rpm"
-ARG NOMACHINE_ARM64_RPM="nomachine_9.1.24_6_aarch64.rpm"
-ARG NOMACHINE_URL_AMD64="https://web9001.nomachine.com/download/9.1/Linux/${NOMACHINE_AMD64_RPM}"
-ARG NOMACHINE_URL_ARM64="https://web9001.nomachine.com/download/9.1/Arm/${NOMACHINE_ARM64_RPM}"
+ARG NOMACHINE_AMD64_RPM="nomachine_9.2.18_3_x86_64.rpm"
+ARG NOMACHINE_ARM64_RPM="nomachine_9.2.18_3_aarch64.rpm"
+ARG NOMACHINE_URL_AMD64="https://web9001.nomachine.com/download/9.2/Linux/${NOMACHINE_AMD64_RPM}"
+ARG NOMACHINE_URL_ARM64="https://web9001.nomachine.com/download/9.2/Arm/${NOMACHINE_ARM64_RPM}"
 
 RUN echo "$NOMACHINE_AMD64_RPM" && \
     echo "$NOMACHINE_URL_AMD64" && \
@@ -39,7 +39,7 @@ RUN echo "$NOMACHINE_AMD64_RPM" && \
     else \
         echo "Unsupported architecture: $ARCH" && exit 1; \
     fi && \
-    rpm -i nomachine.rpm && \
+    rpm -i --nodigest --nosignature nomachine.rpm && \
     rm -rf nomachine.rpm && \
     /usr/NX/bin/nxserver --startup
 
