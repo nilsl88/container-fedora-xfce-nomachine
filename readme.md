@@ -1,43 +1,59 @@
-# Container alternative to Virtual Machines for Transient Environments That Require GUI's
+# Container Alternative to Virtual Machines for Transient GUI Environments
 
-A Fedora based Container/Docker image with Xfce and NoMachine which allows for local Virtual Machine equivalent graphical performance (as opposed to X11, VNC and RDP), accessing the desktop environment.
+A Fedora-based container image with Xfce and NoMachine that provides local virtual-machine-like graphical performance (as opposed to X11, VNC, and RDP) for accessing a full desktop environment.
 
-### Inspiration from
+## Inspiration
 
-[docker-fedora-xfce-nomachine](https://github.com/cmanique/docker-fedora-xfce-nomachine) 
+- [docker-fedora-xfce-nomachine](https://github.com/cmanique/docker-fedora-xfce-nomachine)
+- [Docker as an Alternative to Virtual Machines for Transient Environments That Require a GUI](https://dev.to/cmanique/docker-as-an-alternative-to-virtual-machines-for-transient-environments-that-require-a-gui-24la)
 
-[Docker as an Alternative to Virtual Machines for Transient Environments That Require a GUI](https://dev.to/cmanique/docker-as-an-alternative-to-virtual-machines-for-transient-environments-that-require-a-gui-24la)
+## Quick notes
 
-## How use
+- This repository is documented for **podman-only workflows**.
+- All command examples below use `podman` directly.
+- If you previously used a `docker` alias, replace it with `podman` commands.
 
-### a) Build the image from this repository
+## Usage
 
-```
-$ git clone https://github.com/nilsl88/container-fedora-xfce-nomachine.git
-$ cd container-fedora-xfce-nomachine
-$ alias docker=podman
-$ docker build -t fedora-xfce-nomachine .
-```   
+### 1) 🛠️ Build the image from this repository
 
-### b) Directly from Docker Hub
-
-```
-$ alias docker=podman
-$ docker pull docker.io/lundberg88/fedora-xfce-nomachine:<tag>
+```bash
+git clone https://github.com/nilsl88/container-fedora-xfce-nomachine.git
+cd container-fedora-xfce-nomachine
+podman build -t fedora-xfce-nomachine .
 ```
 
-### Start a container
+If you want to build for both CPU architectures (`amd64` + `arm64`) and publish a multi-arch manifest:
 
-```
-$ alias docker=podman
-$ docker run --privileged -d -p 4000:4000 -p 4000:4000/udp --name fedora-xfce-nomachine docker.io/lundberg88/fedora-xfce-nomachine:<tag>
+```bash
+export IMAGE=docker.io/lundberg88/fedora-xfce-nomachine:<tag>
+podman build \
+  --platform linux/amd64,linux/arm64 \
+  --manifest $IMAGE \
+  .
+podman manifest push --all $IMAGE docker://$IMAGE
 ```
 
-### Stop the container
+### 2) 📥 Pull directly from Docker Hub
 
+```bash
+podman pull docker.io/lundberg88/fedora-xfce-nomachine:<tag>
 ```
-$ alias docker=podman
-$ docker stop fedora-xfce-nomachine
-# Or stop and remove 
-$ docker rm -f fedora-xfce-nomachine
+
+### 3) 🚀 Start a container
+
+```bash
+podman run --privileged -d -p 4000:4000 -p 4000:4000/udp --name fedora-xfce-nomachine docker.io/lundberg88/fedora-xfce-nomachine:<tag>
 ```
+
+### 4) 🛑 Stop and remove the container
+
+```bash
+podman stop fedora-xfce-nomachine
+# Optional: stop and remove
+podman rm -f fedora-xfce-nomachine
+```
+
+## Access
+
+After the container starts, connect with NoMachine to your host on port `4000`.
