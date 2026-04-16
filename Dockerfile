@@ -22,20 +22,18 @@ RUN mkdir -p /var/lib/dbus && dbus-uuidgen > /var/lib/dbus/machine-id && mkdir -
 RUN sed -i 's/SELINUX=permissive/SELINUX=disabled/g' /etc/selinux/config
 
 # Install NoMachine
-ARG NOMACHINE_AMD64_RPM="nomachine_9.2.18_3_x86_64.rpm"
-ARG NOMACHINE_ARM64_RPM="nomachine_9.2.18_3_aarch64.rpm"
-ARG NOMACHINE_URL_AMD64="https://web9001.nomachine.com/download/9.2/Linux/${NOMACHINE_AMD64_RPM}"
-ARG NOMACHINE_URL_ARM64="https://web9001.nomachine.com/download/9.2/Arm/${NOMACHINE_ARM64_RPM}"
+ARG NOMACHINE_AMD64_RPM="nomachine_9.4.14_1_x86_64.rpm"
+ARG NOMACHINE_ARM64_RPM="nomachine_9.4.14_1_aarch64.rpm"
+ARG NOMACHINE_URL_AMD64="https://web9001.nomachine.com/download/9.4/Linux/${NOMACHINE_AMD64_RPM}"
+ARG NOMACHINE_URL_ARM64="https://web9001.nomachine.com/download/9.4/Arm/${NOMACHINE_ARM64_RPM}"
 
 RUN echo "$NOMACHINE_AMD64_RPM" && \
     echo "$NOMACHINE_URL_AMD64" && \
     ARCH=$(uname -m) && \
     if [ "$ARCH" = "x86_64" ]; then \
-        NOMACHINE_VERSION=$(echo "$NOMACHINE_AMD64_RPM" | sed -n 's/nomachine_\([0-9]*\.[0-9]*\)\..*/\1/p'); \
-        curl -fSL "https://download.nomachine.com/download/$NOMACHINE_VERSION/Linux/${NOMACHINE_AMD64_RPM}" -o nomachine.rpm; \
+        curl -fSL "$NOMACHINE_URL_AMD64" -o nomachine.rpm; \
     elif [ "$ARCH" = "aarch64" ]; then \
-        NOMACHINE_VERSION=$(echo "$NOMACHINE_ARM64_RPM" | sed -n 's/nomachine_\([0-9]*\.[0-9]*\)\..*/\1/p'); \
-        curl -fSL "https://download.nomachine.com/download/$NOMACHINE_VERSION/Arm/${NOMACHINE_ARM64_RPM}" -o nomachine.rpm; \
+        curl -fSL "$NOMACHINE_URL_ARM64" -o nomachine.rpm; \
     else \
         echo "Unsupported architecture: $ARCH" && exit 1; \
     fi && \
