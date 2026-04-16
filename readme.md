@@ -7,12 +7,6 @@ A Fedora-based container image with Xfce and NoMachine that provides local virtu
 - [docker-fedora-xfce-nomachine](https://github.com/cmanique/docker-fedora-xfce-nomachine)
 - [Docker as an Alternative to Virtual Machines for Transient Environments That Require a GUI](https://dev.to/cmanique/docker-as-an-alternative-to-virtual-machines-for-transient-environments-that-require-a-gui-24la)
 
-## Quick notes
-
-- This repository is documented for **podman-only workflows**.
-- All command examples below use `podman` directly.
-- If you previously used a `docker` alias, replace it with `podman` commands.
-
 ## Usage
 
 ### 1) 🛠️ Build the image from this repository
@@ -26,7 +20,7 @@ podman build -t fedora-xfce-nomachine .
 If you want to build for both CPU architectures (`amd64` + `arm64`) and publish a multi-arch manifest:
 
 ```bash
-export IMAGE=docker.io/lundberg88/fedora-xfce-nomachine:<tag>
+export IMAGE=docker.io/<user>/<repo>:<tag>
 podman build \
   --platform linux/amd64,linux/arm64 \
   --manifest $IMAGE \
