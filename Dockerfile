@@ -22,10 +22,10 @@ RUN mkdir -p /var/lib/dbus && dbus-uuidgen > /var/lib/dbus/machine-id && mkdir -
 RUN sed -i 's/SELINUX=permissive/SELINUX=disabled/g' /etc/selinux/config
 
 # Install NoMachine
-ARG NOMACHINE_AMD64_RPM="nomachine_9.5.7_2_x86_64.rpm"
-ARG NOMACHINE_ARM64_RPM="nomachine_9.5.7_2_aarch64.rpm"
-ARG NOMACHINE_URL_AMD64="https://web9001.nomachine.com/download/9.5/Linux/${NOMACHINE_AMD64_RPM}"
-ARG NOMACHINE_URL_ARM64="https://web9001.nomachine.com/download/9.5/Arm/${NOMACHINE_ARM64_RPM}"
+ARG NOMACHINE_AMD64_RPM="nomachine_9.6.3_1_x86_64.rpm"
+ARG NOMACHINE_ARM64_RPM="nomachine_9.6.3_1_aarch64.rpm"
+ARG NOMACHINE_URL_AMD64="https://web9001.nomachine.com/download/9.6/Linux/${NOMACHINE_AMD64_RPM}"
+ARG NOMACHINE_URL_ARM64="https://web9001.nomachine.com/download/9.6/Arm/${NOMACHINE_ARM64_RPM}"
 
 RUN echo "$NOMACHINE_AMD64_RPM" && \
     echo "$NOMACHINE_URL_AMD64" && \
